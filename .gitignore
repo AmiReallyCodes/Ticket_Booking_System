@@ -7,4 +7,8 @@
 # scratch/debug files
 checkdb/
 current_schema.sql
+
+# env files
+.env
+api/.env
 "@ | Out-File -Encoding utf8 .gitignore
