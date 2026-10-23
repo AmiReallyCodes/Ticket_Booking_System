@@ -1,0 +1,3 @@
+ALTER TABLE seats
+    ADD COLUMN held_by BIGINT,
+    ADD COLUMN held_until TIMESTAMPTZ;

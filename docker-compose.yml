@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: booking-postgres
+    environment:
+      POSTGRES_USER: booking
+      POSTGRES_PASSWORD: booking
+      POSTGRES_DB: booking
+    ports:
+      - "5433:5432"   # host:container. 5433 avoids clashing with another local Postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Files in this folder run automatically, in alphabetical order,
+      # but ONLY the first time the database volume is created.
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U booking -d booking"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: booking-redis
+    ports:
+      - "6380:6379"   # 6380 avoids clashing with another local Redis
+
+volumes:
+  pgdata:

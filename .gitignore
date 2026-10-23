@@ -1,0 +1,10 @@
+@"
+# Go
+*.exe
+*.test
+*.out
+
+# scratch/debug files
+checkdb/
+current_schema.sql
+"@ | Out-File -Encoding utf8 .gitignore
